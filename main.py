@@ -185,7 +185,6 @@ def get_all_posts():
 def show_post(post_id):
     comment_form = CommentForm()
     requested_post = db.get_or_404(BlogPost, post_id)
-    print(list(requested_post.comments)[0].text)
     if comment_form.validate_on_submit():
         if not current_user.is_authenticated:
             flash('You need to login or register to comment')
