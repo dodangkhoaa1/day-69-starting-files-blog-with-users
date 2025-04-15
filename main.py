@@ -154,15 +154,15 @@ def login():
 
         user_db = db.session.execute(db.select(User).where(User.email == email)).scalar()
         if user_db is None:
-            error = "Email is not exist, please try again!"
-            return render_template("login.html", error=error)
+            flash('Email is not exist, please try again!')
+            return redirect(url_for('login'))
         password_correct = check_password_hash(pwhash=user_db.password, password=password)
         if password_correct:
             login_user(user_db)
             return redirect(url_for('get_all_posts'))
         else:
-            error = 'Password is incorrect, please try again!'
-            return render_template("login.html", error=error)
+            flash('Password is incorrect, please try again!')
+            return redirect(url_for('login'))
 
     return render_template("login.html", form=form)
 
